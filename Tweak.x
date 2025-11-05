@@ -128,7 +128,7 @@ static void didSelectRate(float rate) {
 
 %new(v@:@)
 - (void)updateYouSpeedButton:(id)arg {
-    [self.overlayButtons[TweakKey] setTitle:currentSpeedLabel forState:UIControlStateNormal];
+    [(YTQTMButton *)self.overlayButtons[TweakKey] setTitle:currentSpeedLabel forState:UIControlStateNormal];
 }
 
 %new(v@:@)
@@ -160,7 +160,7 @@ static void didSelectRate(float rate) {
 
 %new(v@:@)
 - (void)updateYouSpeedButton:(id)arg {
-    [self.overlayButtons[TweakKey] setTitle:currentSpeedLabel forState:UIControlStateNormal];
+    [(YTQTMButton *)self.overlayButtons[TweakKey] setTitle:currentSpeedLabel forState:UIControlStateNormal];
 }
 
 %new(v@:@)
