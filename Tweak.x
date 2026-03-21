@@ -221,6 +221,24 @@ static void didSelectRate(float rate) {
 
 %end
 
+%hook YTVarispeedSwitchControllerImpl
+
+- (id)init {
+    self = %orig;
+    #define itemCount 16
+    float speeds[] = {MIN_SPEED, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0, 2.25, 2.5, 2.75, 3.0, 3.5, 4.0, 4.5, MAX_SPEED};
+    id options[itemCount];
+    Class YTVarispeedSwitchControllerOptionClass = %c(YTVarispeedSwitchControllerOption);
+    for (int i = 0; i < itemCount; ++i) {
+        NSString *title = [NSString stringWithFormat:@"%.2fx", speeds[i]];
+        options[i] = [[YTVarispeedSwitchControllerOptionClass alloc] initWithTitle:title rate:speeds[i]];
+    }
+    [self setValue:[NSArray arrayWithObjects:options count:itemCount] forKey:@"_options"];
+    return self;
+}
+
+%end
+
 %hook MLHAMQueuePlayer
 
 - (void)setRate:(float)newRate {
