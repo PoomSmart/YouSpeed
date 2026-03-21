@@ -17,6 +17,7 @@
 #import <YouTubeHeader/YTIMenuItemSupportedRenderers.h>
 #import <YouTubeHeader/YTMainAppVideoPlayerOverlayViewController.h>
 #import <YouTubeHeader/YTVarispeedSwitchController.h>
+#import <YouTubeHeader/YTVarispeedSwitchControllerImpl.h>
 #import <YouTubeHeader/YTVarispeedSwitchControllerOption.h>
 
 #define TweakKey @"YouSpeed"
@@ -203,11 +204,12 @@ static void didSelectRate(float rate) {
 
 %group Speed
 
+#define itemCount 16
+
 %hook YTVarispeedSwitchController
 
 - (id)init {
     self = %orig;
-    #define itemCount 16
     float speeds[] = {MIN_SPEED, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0, 2.25, 2.5, 2.75, 3.0, 3.5, 4.0, 4.5, MAX_SPEED};
     id options[itemCount];
     Class YTVarispeedSwitchControllerOptionClass = %c(YTVarispeedSwitchControllerOption);
@@ -225,7 +227,6 @@ static void didSelectRate(float rate) {
 
 - (id)init {
     self = %orig;
-    #define itemCount 16
     float speeds[] = {MIN_SPEED, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0, 2.25, 2.5, 2.75, 3.0, 3.5, 4.0, 4.5, MAX_SPEED};
     id options[itemCount];
     Class YTVarispeedSwitchControllerOptionClass = %c(YTVarispeedSwitchControllerOption);
