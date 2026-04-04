@@ -272,6 +272,10 @@ static void didSelectRate(float rate) {
 
 // %end
 
+%end
+
+%group OverrideMaxSpeed
+
 %hook YTIPlayerHotConfig
 
 %new(f@:)
@@ -585,24 +589,6 @@ YouSpeedSliderAlertView *alert;
 
 %end
 
-%hook YTIPlayerHotConfig
-
-%new(f@:)
-- (float)maximumPlaybackRate {
-    return MAX_SPEED;
-}
-
-%end
-
-%hook YTIGranularVariableSpeedConfig
-
-%new(d@:)
-- (int)maximumPlaybackRate {
-    return MAX_SPEED * 100;
-}
-
-%end
-
 %end
 
 %ctor {
@@ -615,9 +601,12 @@ YouSpeedSliderAlertView *alert;
     %init(Video);
     %init(Top);
     %init(Bottom);
+    if (MoreSpeed() || SpeedSlider()) {
+        %init(OverrideMaxSpeed);
+    }
     if (MoreSpeed()) {
         %init(Speed);
-    }
+    } 
     if (FixNativeSpeed()) {
         %init(OverrideNative);
     }
