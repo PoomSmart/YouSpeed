@@ -585,6 +585,24 @@ YouSpeedSliderAlertView *alert;
 
 %end
 
+%hook YTIPlayerHotConfig
+
+%new(f@:)
+- (float)maximumPlaybackRate {
+    return MAX_SPEED;
+}
+
+%end
+
+%hook YTIGranularVariableSpeedConfig
+
+%new(d@:)
+- (int)maximumPlaybackRate {
+    return MAX_SPEED * 100;
+}
+
+%end
+
 %end
 
 %ctor {
