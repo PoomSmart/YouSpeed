@@ -515,10 +515,6 @@ YouSpeedSliderAlertView *alert;
 %hook YTMainAppVideoPlayerOverlayViewController
 
 - (void)didPressVarispeed:(id)arg1 {
-    if (!SpeedSlider()) {
-        %orig;
-        return;
-    }
     NSBundle *tweakBundle = YouSpeedBundle();
     NSString *label = LOC(@"PLAYBACK_SPEED");
     NSString *chooseFromOriginalLabel = LOC(@"CHOOSE_FROM_ORIGINAL");
@@ -610,5 +606,7 @@ YouSpeedSliderAlertView *alert;
     if (FixNativeSpeed()) {
         %init(OverrideNative);
     }
-    %init(Slider);
+    if (SpeedSlider()) {
+        %init(Slider);
+    }
 }
