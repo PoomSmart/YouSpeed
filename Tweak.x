@@ -272,6 +272,10 @@ static void didSelectRate(float rate) {
 
 // %end
 
+%end
+
+%group OverrideMaxSpeed
+
 %hook YTIPlayerHotConfig
 
 %new(f@:)
@@ -511,10 +515,6 @@ YouSpeedSliderAlertView *alert;
 %hook YTMainAppVideoPlayerOverlayViewController
 
 - (void)didPressVarispeed:(id)arg1 {
-    if (!SpeedSlider()) {
-        %orig;
-        return;
-    }
     NSBundle *tweakBundle = YouSpeedBundle();
     NSString *label = LOC(@"PLAYBACK_SPEED");
     NSString *chooseFromOriginalLabel = LOC(@"CHOOSE_FROM_ORIGINAL");
@@ -597,11 +597,16 @@ YouSpeedSliderAlertView *alert;
     %init(Video);
     %init(Top);
     %init(Bottom);
+    if (MoreSpeed() || SpeedSlider()) {
+        %init(OverrideMaxSpeed);
+    }
     if (MoreSpeed()) {
         %init(Speed);
     }
     if (FixNativeSpeed()) {
         %init(OverrideNative);
     }
-    %init(Slider);
+    if (SpeedSlider()) {
+        %init(Slider);
+    }
 }
