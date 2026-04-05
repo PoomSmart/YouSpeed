@@ -602,7 +602,7 @@ YouSpeedSliderAlertView *alert;
     }
     if (MoreSpeed()) {
         %init(Speed);
-    } 
+    }
     if (FixNativeSpeed()) {
         %init(OverrideNative);
     }
