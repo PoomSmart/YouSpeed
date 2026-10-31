@@ -136,12 +136,25 @@ static void didSelectRate(float rate) {
 
 %group Bottom
 
+static void initializeBottomYouSpeed(YTInlinePlayerBarContainerView *view) {
+    if (!view) return;
+    [view updateYouSpeedButton:nil];
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center removeObserver:view name:YouSpeedUpdateNotification object:nil];
+    [center addObserver:view selector:@selector(updateYouSpeedButton:) name:YouSpeedUpdateNotification object:nil];
+}
+
 %hook YTInlinePlayerBarContainerView
 
 - (id)init {
     self = %orig;
-    [self updateYouSpeedButton:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateYouSpeedButton:) name:YouSpeedUpdateNotification object:nil];
+    initializeBottomYouSpeed(self);
+    return self;
+}
+
+- (id)initWithParentResponder:(id)parentResponder {
+    self = %orig;
+    initializeBottomYouSpeed(self);
     return self;
 }
 
